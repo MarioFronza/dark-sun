@@ -1,0 +1,6 @@
+# Let plugging anything into USB wake the machine from s2idle. Wake on a new
+# connection is gated at the root hub, which ships disabled; 1d6b is the
+# vendor id every virtual root hub reports, so no dock, device or port is
+# named here. If the machine starts waking on its own, suspect a leaf device
+# first: grep . /sys/bus/usb/devices/*/power/wakeup
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="1d6b", ATTR{power/wakeup}="enabled"

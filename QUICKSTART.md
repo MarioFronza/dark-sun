@@ -41,8 +41,8 @@ archinstall
 Leave the profile and audio sections alone on purpose. Every desktop
 profile drags in a compositor, a launcher and a terminal of its own
 choosing, and DarkSun installs its own set — see
-[`packages/pacman.txt`](packages/pacman.txt). Picking one only means
-uninstalling the parts you don't want afterwards.
+[`modules/05-packages/pacman.txt`](modules/05-packages/pacman.txt). Picking
+one only means uninstalling the parts you don't want afterwards.
 
 Reboot, log in as the user you created.
 
@@ -87,7 +87,7 @@ Go back to the machine's own console for this part, because enabling them
 takes that connection down:
 
 ```bash
-cd ~/.local/share/dark-sun/packages
+cd ~/.local/share/dark-sun/modules/05-packages
 ./enable-services.sh
 ```
 
@@ -96,11 +96,9 @@ this machine on the tailnet.
 
 ## 7. Finish the account-bound bits
 
-`install.sh` printed these at the end — see
-[`git/README.md`](git/README.md) and [`github/README.md`](github/README.md)
-for the full detail:
+`install.sh` prints these at the end, with the exact commands:
 
-- edit `~/.config/git/identity`, generate an SSH key, add it to GitHub,
-  write `~/.config/git/allowed_signers`
-- `gh auth login`
+- edit `~/.config/git/identity`, generate an SSH key, add it to GitHub under
+  both Authentication and Signing, write `~/.config/git/allowed_signers`
+- `gh auth login`, picking SSH as the protocol
 - `/theme` inside Claude Code to pick `tokyo_night`

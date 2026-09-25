@@ -1,0 +1,5 @@
+# Stop charging at 80%, resume at 75%. The embedded controller enforces it,
+# and the 5-point gap is what stops it cycling at the edge. Fires when the
+# battery appears, at boot and on resume; does nothing on hardware that
+# doesn't expose these attributes.
+ACTION=="add", SUBSYSTEM=="power_supply", KERNEL=="BAT[0-9]", ATTR{charge_control_start_threshold}="75", ATTR{charge_control_end_threshold}="80"

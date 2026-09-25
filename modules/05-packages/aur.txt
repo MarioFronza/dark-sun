@@ -1,0 +1,44 @@
+# AUR packages.
+#
+
+# --- Dev tools ---
+claude-code
+rtk
+
+# --- TUI controls (wifi's impala, bluetooth's bluetui are in pacman.txt) ---
+# wiremix-git: only a -git (VCS) package exists in the AUR, so it compiles
+# from source at install time — needs `rust` from pacman.txt on PATH.
+wiremix-git
+
+# --- Apps ---
+1password
+1password-cli
+spotify
+nordvpn-bin
+localsend
+
+# --- Bootloader (Limine + Snapper integration) ---
+limine-mkinitcpio-hook
+limine-snapper-sync
+
+# --- Misc tools ---
+xdg-terminal-exec
+cliamp
+tensaku
+ttf-ia-writer
+ufw-docker
+tzupdate
+yaru-icon-theme
+
+# --- Android / mobile RE ---
+android-apktool
+android-sdk-build-tools-36
+
+# --- Security / reverse engineering ---
+burpsuite
+dex2jar
+# python-frida-bin: prebuilt PyPI wheel, not python-frida — the source
+# build compiles V8 from scratch (single-threaded, 30-90+ min, prone to
+# failing on 15GB RAM). Provides python-frida, satisfies frida-tools' dep.
+python-frida-bin
+frida-tools

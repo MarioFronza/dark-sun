@@ -1,0 +1,8 @@
+# AMD GPU — amdgpu is in the kernel already, this is just Vulkan userspace.
+
+vulkan-radeon
+lib32-vulkan-radeon
+
+# amd-ucode is CPU microcode, not GPU — only add it if the CPU is AMD too
+# (independent choice from the GPU vendor):
+# amd-ucode

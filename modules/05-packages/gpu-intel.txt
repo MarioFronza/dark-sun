@@ -1,0 +1,9 @@
+# Intel GPU — i915 is in the kernel already, this is Vulkan + VAAPI userspace.
+
+vulkan-intel
+lib32-vulkan-intel
+intel-media-driver
+
+# intel-ucode is CPU microcode, not GPU — only add it if the CPU is Intel
+# too (independent choice from the GPU vendor):
+# intel-ucode

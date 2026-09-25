@@ -1,45 +1,60 @@
 # DarkSun
 
-Opinionated, standalone Arch Linux system: Sway, one command from a bare
-`archinstall` to a fully configured desktop.
+Opinionated, standalone Arch Linux system: Sway, Tokyo Night, one command
+from a bare `archinstall` to a configured desktop. Works on any laptop or
+desktop — hardware-specific parts detect what they need and skip themselves
+when it isn't there.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/MarioFronza/dark-sun/main/boot.sh | bash
 ```
 
-Starting from a blank machine? See [`QUICKSTART.md`](QUICKSTART.md)
-(install media through a working, SSH-reachable base system, then the
-command above).
+Starting from blank hardware? See [`QUICKSTART.md`](QUICKSTART.md): install
+media through a working, SSH-reachable base system, then the command above.
 
-## What it installs
+## How it works
 
-- [`packages/`](packages/README.md) — pacman/AUR packages, GPU driver
-  auto-detected via `lspci`
-- [`udev/`](udev/README.md) — system udev rules (USB wake-on-connect,
-  battery threshold), only on a laptop chassis
-- [`alacritty/`](alacritty/README.md) — terminal
-- [`zsh/`](zsh/README.md) — shell
-- [`tmux/`](tmux/README.md) — terminal multiplexer
-- [`git/`](git/README.md) — git config
-- [`github/`](github/README.md) — gh CLI config
-- [`mise/`](mise/README.md) — language/tool versions
-- [`nvim/`](nvim/README.md) — editor
-- [`sway/`](sway/README.md) — Sway
-- [`waybar/`](waybar/README.md) — status bar
-- [`fuzzel/`](fuzzel/README.md) — app launcher
-- [`mako/`](mako/README.md) — notifications
-- [`swayosd/`](swayosd/README.md) — volume/brightness OSD
-- [`swaylock/`](swaylock/README.md) — lock screen
-- [`claude/`](claude/README.md) — Claude Code config
+`boot.sh` installs git, clones this repo to `~/.local/share/dark-sun` and
+sources `install.sh`, which runs every `modules/*/install.sh` in order.
 
-Each module's README documents what its `install/NN-*.sh` script does and
-how to redo that step by hand if you ever need to.
+Each module is one self-contained directory: the script plus exactly the
+files it copies. Adding or removing a module is adding or removing a
+directory. They are numbered in dependency order, in steps of 5.
 
-## What it does not do
+| Module | What it does |
+|---|---|
+| `05-packages` | pacman + AUR, GPU driver auto-detected via `lspci` |
+| `10-udev` | USB wake-on-connect, battery charge thresholds — laptops only |
+| `15-alacritty` | terminal |
+| `20-zsh` | shell, and sets it as the login shell |
+| `25-tmux` | multiplexer + tpm |
+| `30-git` | git config |
+| `35-github` | gh CLI config |
+| `40-mise` | language/tool versions |
+| `45-nvim` | LazyVim + overrides |
+| `50-sway` | compositor, monitor/lid handling |
+| `55-waybar` | status bar |
+| `60-fuzzel` | app launcher |
+| `65-mako` | notifications |
+| `70-swayosd` | volume/brightness OSD |
+| `75-swaylock` | lock screen |
+| `80-claude` | Claude Code config |
 
-- Disk partitioning, encryption, bootloader — `archinstall` stays manual,
-  see `QUICKSTART.md`.
-- Enabling network/bluetooth services — run `packages/enable-services.sh`
-  yourself, from the machine's own console (it takes the network down).
-- Anything account-bound: SSH key generation/upload, `gh auth login` —
-  `install.sh` prints what's left at the end.
+## Hardware differences
+
+Nothing has to be passed in or edited by hand:
+
+- **GPU** — every vendor found on the PCI bus gets its driver, so hybrid
+  graphics installs both.
+- **Laptop vs desktop** — `10-udev` installs nothing unless the DMI chassis
+  type says laptop, and `50-sway`'s monitor script exits immediately when
+  there is no built-in panel, leaving sway's own multi-monitor defaults.
+
+## What it deliberately does not do
+
+- Disk partitioning, encryption, bootloader — `archinstall` stays manual.
+- Enabling network/bluetooth services — run
+  `modules/05-packages/enable-services.sh` from the machine's own console,
+  since it takes the network down.
+- Anything account-bound: SSH keys, `gh auth login`. `install.sh` prints
+  what is left when it finishes.
