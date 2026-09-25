@@ -1,0 +1,10 @@
+# AMD GPU — open-source driver (amdgpu is built into the kernel already,
+# this is just the Vulkan userspace). Install with:
+#   sed 's/#.*//' gpu-amd.txt | awk 'NF{print $1}' | xargs sudo pacman -S --needed
+
+vulkan-radeon
+lib32-vulkan-radeon
+
+# amd-ucode is CPU microcode, not GPU — only add it if the CPU is AMD too
+# (independent choice from the GPU vendor):
+# amd-ucode

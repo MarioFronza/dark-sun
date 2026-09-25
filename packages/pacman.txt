@@ -1,0 +1,222 @@
+# Official repos only (core/extra/multilib) — every name here was checked
+# with `pacman -Ss ^name$` against this machine's repos. Nothing from a
+# third-party repo. lib32-* packages need [multilib] uncommented in
+# /etc/pacman.conf first. Installed by install.sh, or manually with:
+#   sed 's/#.*//' pacman.txt | awk 'NF{print $1}' | xargs sudo pacman -S --needed
+#
+# This list assumes a bare Arch install with no desktop profile selected, so
+# it carries the compositor and its tools too. Not listed here on purpose
+# (comes from the Arch install itself): base, linux, linux-firmware, and CPU
+# microcode. GPU drivers are vendor-specific — see gpu-amd.txt /
+# gpu-intel.txt / gpu-nvidia.txt.
+
+# --- Build essentials / core utilities ---
+base-devel
+sudo
+man-db
+bash-completion
+pacman-contrib
+expac
+
+# --- Bootloader / snapshots (this machine used Limine — swap for your
+#     installer's bootloader, e.g. grub or systemd-boot) ---
+limine
+snapper
+plymouth
+btrfs-progs
+zram-generator
+kernel-modules-hook
+efibootmgr
+
+# --- Filesystem / disk tools ---
+dosfstools
+exfatprogs
+dua-cli
+gnome-disk-utility
+gvfs-mtp
+gvfs-nfs
+gvfs-smb
+udiskie
+
+# --- Networking (iwd for wifi, systemd-networkd for wired/DHCP — no
+#     NetworkManager. See wifi-bluetooth.md for setup) ---
+iwd
+impala
+avahi
+nss-mdns
+inetutils
+wireless-regdb
+bluez
+bluez-utils
+bluetui
+tailscale
+ufw
+whois
+socat
+wget
+
+# --- Audio ---
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
+wireplumber
+gst-plugin-pipewire
+alsa-utils
+libpulse
+pamixer
+sof-firmware # ThinkPad's internal audio is sof-hda-dsp; silent without it
+
+# --- Graphics (vendor-agnostic base; see gpu-*.txt for the driver) ---
+mesa
+lib32-mesa
+vulkan-icd-loader
+lib32-vulkan-icd-loader
+libva-utils
+
+# --- Wayland desktop basics ---
+sway
+swaybg
+swayidle
+swaylock
+waybar
+xorg-xwayland # X11 apps under sway: steam, virtualbox, ghidra, burpsuite
+brightnessctl # sway's brightness backend, driven through swayosd-client
+grim          # screenshots, bound to Print in ../sway/config
+xdg-desktop-portal-gtk
+xdg-desktop-portal-wlr
+polkit
+polkit-gnome
+mako
+swayosd
+fuzzel
+cliphist
+wl-clipboard
+wtype
+playerctl
+power-profiles-daemon
+qrencode
+xmlstarlet
+qt5-wayland
+qt6-imageformats
+
+# --- Fonts / theming ---
+fontconfig
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-jetbrains-mono-nerd
+adwaita-fonts
+woff2-font-awesome
+gnome-themes-extra
+
+# --- Terminal / shell ---
+alacritty
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+starship
+zoxide
+fzf
+eza
+bat
+fd
+ripgrep
+tmux
+atuin
+gum
+tldr
+fastfetch
+btop
+inxi
+plocate
+less
+jq
+lua51
+luarocks
+usage
+
+# --- Editor / dev tools ---
+neovim
+git
+github-cli
+lazygit
+lazydocker
+docker
+docker-buildx
+docker-compose
+tree-sitter-cli
+clang
+llvm
+libyaml
+mariadb-libs
+postgresql-libs
+mise
+re2c # needed to build php from source via mise
+gd   # needed to build php from source via mise (--with-gd)
+
+# ruby/dotnet aren't listed here — mise manages them (see ../mise/). rust is
+# an exception: wiremix-git (aur.txt) needs cargo to build, and install.sh
+# runs AUR installs with /usr/bin first on PATH, ahead of mise's rust.
+rust
+
+# --- File manager ---
+nautilus
+nautilus-python
+sushi
+gnome-keyring
+libsecret
+
+# --- Media ---
+mpv
+mpv-mpris
+ffmpegthumbnailer
+imv
+imagemagick
+libvips
+obs-studio
+gpu-screen-recorder
+kdenlive
+audacity
+guvcview
+scrcpy
+moonlight-qt
+yt-dlp
+zbar
+
+# --- Office / productivity ---
+libreoffice-fresh
+evince
+xournalpp
+pinta
+obsidian
+libqalculate
+tesseract
+tesseract-data-eng
+
+# --- Browsers ---
+firefox
+
+# --- Virtualization / gaming ---
+virtualbox
+qemu-user-static-binfmt
+steam
+
+# --- Hardware-specific utilities ---
+ddcutil
+bolt
+fwupd
+android-tools
+
+# --- Security / reverse engineering (dual-use, personal research tooling) ---
+ghidra
+radare2
+jadx
+mitmproxy
+zaproxy
+
+# --- Misc ---
+inotify-tools
+unzip
+python-gobject
+python-poetry-core

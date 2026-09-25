@@ -1,0 +1,8 @@
+# Let plugging anything into USB wake the machine from s2idle.
+#
+# The xHCI controllers and Thunderbolt domains already permit wakeup, but a
+# *new connection* is gated one level up, at the root hub, which ships
+# disabled. 1d6b is the vendor id every virtual root hub reports, so this
+# matches the ThinkPad's own four controllers and nothing else — no dock, no
+# device, no port is named anywhere.
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="1d6b", ATTR{power/wakeup}="enabled"
