@@ -32,3 +32,8 @@ done
 if [[ $failures -gt 0 ]]; then
   exit 1
 fi
+
+if [[ ! -f "$HOME/.claude/settings.json" || -L "$HOME/.claude/settings.json" ]]; then
+  echo "FAIL: ~/.claude/settings.json must exist as a regular file, not a symlink"
+  exit 1
+fi
