@@ -27,8 +27,10 @@ curl .../boot.sh | bash
 ```
 
 - Modules: `modules/NN-name/install.sh`, numbered in steps of 5,
-  self-contained. Config-copying modules (`15-alacritty` ... `80-claude`)
-  collapse into one dotfiles/stow module.
+  self-contained. `15-dotfiles` clones and stows; later modules only do what
+  stow cannot (chsh, tpm clone, git identity seed, mise install).
+- Tests: `bash test/dotfiles.sh` and `bash test/modules.sh`, against the
+  sibling `../dotfiles` clone (override with `DOTFILES_REPO`).
 - Hardware-agnostic: detect, never ask. Skip silently what doesn't apply.
 - Re-runnable: running `install.sh` twice is safe (`--needed`, `stow -R`).
 - Out of scope: partitioning, encryption, bootloader (archinstall), enabling

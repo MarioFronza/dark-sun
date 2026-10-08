@@ -25,20 +25,16 @@ directory. They are numbered in dependency order, in steps of 5.
 |---|---|
 | `05-packages` | pacman + AUR, GPU driver auto-detected via `lspci` |
 | `10-udev` | USB wake-on-connect, battery charge thresholds — laptops only |
-| `15-alacritty` | terminal |
-| `20-zsh` | shell, and sets it as the login shell |
-| `25-tmux` | multiplexer + tpm |
-| `30-git` | git config |
-| `35-github` | gh CLI config |
-| `40-mise` | language/tool versions |
-| `45-nvim` | LazyVim + overrides |
-| `50-sway` | compositor, monitor/lid handling |
-| `55-waybar` | status bar |
-| `60-fuzzel` | app launcher |
-| `65-mako` | notifications |
-| `70-swayosd` | volume/brightness OSD |
-| `75-swaylock` | lock screen |
-| `80-claude` | Claude Code config |
+| `15-dotfiles` | clones [dotfiles](https://github.com/MarioFronza/dotfiles) to `~/dotfiles` and stows every package into `$HOME` |
+| `20-zsh` | sets zsh as the login shell |
+| `25-tmux` | clones tpm |
+| `30-git` | seeds `~/.config/git/identity` from the dotfiles template |
+| `40-mise` | installs language/tool versions |
+
+Every file under `$HOME` comes from dotfiles as a symlink, so editing a
+config on the machine edits the clone. Commit and push from `~/dotfiles`.
+Claude Code's `settings.json` is the one exception: it is copied once,
+because Claude Code rewrites it at runtime.
 
 ## Hardware differences
 
@@ -49,6 +45,28 @@ Nothing has to be passed in or edited by hand:
 - **Laptop vs desktop** — `10-udev` installs nothing unless the DMI chassis
   type says laptop, and `50-sway`'s monitor script exits immediately when
   there is no built-in panel, leaving sway's own multi-monitor defaults.
+
+## Migrating a configured machine
+
+A machine set up before the switch to stow has real files where the
+symlinks go, and stow refuses to replace them. Move them out of the way,
+then re-run:
+
+```bash
+backup=~/dotfiles-backup-$(date +%F)
+mkdir -p "$backup"
+cd ~/dotfiles
+for pkg in */; do
+  pkg=${pkg%/}; [[ $pkg == test ]] && continue
+  stow --no-folding -n -v -t ~ "$pkg" 2>&1 \
+    | sed -n 's/.* over existing target \(.*\) since .*/\1/p' \
+    | while read -r file; do mkdir -p "$backup/$(dirname "$file")"; mv ~/"$file" "$backup/$file"; done
+done
+source ~/.local/share/dark-sun/install.sh
+```
+
+Diff anything you changed locally against `$backup` afterwards and commit
+it to dotfiles.
 
 ## What it deliberately does not do
 
