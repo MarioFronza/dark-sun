@@ -3,14 +3,17 @@ set -euo pipefail
 
 DARK_SUN_REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DOTFILES_REPO="${DOTFILES_REPO:-"$DARK_SUN_REPO/../dotfiles"}"
+# install.sh sources modules under set -e, so run them the same way.
+MODULE="$DARK_SUN_REPO/modules/15-dotfiles/install.sh"
 
 tmphome=$(mktemp -d)
-trap 'rm -rf "$tmphome"' EXIT
+conflict_home=$(mktemp -d)
+trap 'rm -rf "$tmphome" "$conflict_home"' EXIT
 
 export HOME="$tmphome"
 export DOTFILES_REPO
 
-bash "$DARK_SUN_REPO/modules/15-dotfiles/install.sh"
+bash -e "$MODULE"
 
 target="$(readlink -f "$HOME/.config/sway/config" 2>/dev/null || true)"
 if [[ "$target" != "$HOME/dotfiles/"* ]]; then
@@ -39,11 +42,22 @@ if [[ ! -f "$HOME/.claude/settings.json" || -L "$HOME/.claude/settings.json" ]];
 fi
 
 echo "# runtime-marker" >> "$HOME/.claude/settings.json"
-if ! bash "$DARK_SUN_REPO/modules/15-dotfiles/install.sh"; then
+if ! bash -e "$MODULE"; then
   echo "FAIL: re-running the module exited non-zero"
   exit 1
 fi
 if ! grep -q "runtime-marker" "$HOME/.claude/settings.json"; then
   echo "FAIL: re-run overwrote ~/.claude/settings.json (runtime edits not preserved)"
+  exit 1
+fi
+
+mkdir -p "$conflict_home/.config/sway"
+echo "mine" > "$conflict_home/.config/sway/config"
+if HOME="$conflict_home" bash -e "$MODULE" >/dev/null 2>&1; then
+  echo "FAIL: module succeeded over a conflicting ~/.config/sway/config"
+  exit 1
+fi
+if [[ -L "$conflict_home/.config/sway/config" || "$(cat "$conflict_home/.config/sway/config")" != "mine" ]]; then
+  echo "FAIL: module changed a conflicting ~/.config/sway/config"
   exit 1
 fi
