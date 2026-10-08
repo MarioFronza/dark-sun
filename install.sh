@@ -34,7 +34,10 @@ cat <<'EOF'
          "$(git config user.email)" "$(cut -d' ' -f1,2 ~/.ssh/id_ed25519.pub)" \
          > ~/.config/git/allowed_signers
 
-  3. gh auth login, picking SSH as the protocol.
+  3. gh auth login, picking SSH as the protocol, then switch the dotfiles
+     clone to SSH so you can push from it:
+
+       git -C ~/dotfiles remote set-url origin git@github.com:MarioFronza/dotfiles.git
 
   4. modules/05-packages/enable-services.sh, from the machine's own
      console — it takes the network with it.
