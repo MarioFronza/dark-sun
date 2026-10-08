@@ -17,3 +17,18 @@ if [[ "$target" != "$HOME/dotfiles/"* ]]; then
   echo "FAIL: ~/.config/sway/config is not a symlink resolving inside ~/dotfiles (got: ${target:-<missing>})"
   exit 1
 fi
+
+PACKAGES=(alacritty claude fuzzel git github mako mise nvim sway swaylock swayosd tmux waybar zsh)
+failures=0
+
+for pkg in "${PACKAGES[@]}"; do
+  out=$(stow --no-folding -n -v -d "$HOME/dotfiles" -t "$HOME" "$pkg" 2>&1)
+  if grep -q '^LINK' <<<"$out"; then
+    echo "FAIL: $pkg not fully stowed"
+    failures=$((failures + 1))
+  fi
+done
+
+if [[ $failures -gt 0 ]]; then
+  exit 1
+fi

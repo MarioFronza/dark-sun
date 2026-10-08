@@ -6,4 +6,5 @@ echo "==> Cloning dotfiles"
 [[ -d ~/dotfiles ]] || git clone "$DOTFILES_REPO" ~/dotfiles
 
 echo "==> Stowing dotfiles"
-stow --no-folding -d ~/dotfiles -t ~ sway
+mapfile -t packages < <(find ~/dotfiles -maxdepth 1 -mindepth 1 -type d ! -name '.*' ! -name 'test' -printf '%f\n')
+stow --no-folding -d ~/dotfiles -t ~ "${packages[@]}"
