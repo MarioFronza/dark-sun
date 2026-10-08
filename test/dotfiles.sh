@@ -53,11 +53,15 @@ fi
 
 mkdir -p "$conflict_home/.config/sway"
 echo "mine" > "$conflict_home/.config/sway/config"
-if HOME="$conflict_home" bash -e "$MODULE" >/dev/null 2>&1; then
+if conflict_out=$(HOME="$conflict_home" bash -e "$MODULE" 2>&1); then
   echo "FAIL: module succeeded over a conflicting ~/.config/sway/config"
   exit 1
 fi
 if [[ -L "$conflict_home/.config/sway/config" || "$(cat "$conflict_home/.config/sway/config")" != "mine" ]]; then
   echo "FAIL: module changed a conflicting ~/.config/sway/config"
+  exit 1
+fi
+if ! grep -q "Migrating a configured machine" <<<"$conflict_out"; then
+  echo "FAIL: conflict output does not point to the migration steps"
   exit 1
 fi
