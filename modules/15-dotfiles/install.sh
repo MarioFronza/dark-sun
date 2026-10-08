@@ -10,4 +10,5 @@ mapfile -t packages < <(find ~/dotfiles -maxdepth 1 -mindepth 1 -type d ! -name 
 stow --no-folding -d ~/dotfiles -t ~ "${packages[@]}"
 
 echo "==> Copying claude settings"
-cp ~/dotfiles/claude/.claude/settings.json ~/.claude/settings.json
+# Claude Code rewrites this file at runtime, so only seed it once.
+[[ -e ~/.claude/settings.json ]] || cp ~/dotfiles/claude/.claude/settings.json ~/.claude/settings.json

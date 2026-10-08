@@ -37,3 +37,13 @@ if [[ ! -f "$HOME/.claude/settings.json" || -L "$HOME/.claude/settings.json" ]];
   echo "FAIL: ~/.claude/settings.json must exist as a regular file, not a symlink"
   exit 1
 fi
+
+echo "# runtime-marker" >> "$HOME/.claude/settings.json"
+if ! bash "$DARK_SUN_REPO/modules/15-dotfiles/install.sh"; then
+  echo "FAIL: re-running the module exited non-zero"
+  exit 1
+fi
+if ! grep -q "runtime-marker" "$HOME/.claude/settings.json"; then
+  echo "FAIL: re-run overwrote ~/.claude/settings.json (runtime edits not preserved)"
+  exit 1
+fi
