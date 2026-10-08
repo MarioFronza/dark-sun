@@ -1,9 +1,8 @@
 # DarkSun
 
-Opinionated, standalone Arch Linux system: Sway, Tokyo Night, one command
-from a bare `archinstall` to a configured desktop. Works on any laptop or
-desktop — hardware-specific parts detect what they need and skip themselves
-when it isn't there.
+My personal Arch Linux setup: Sway, Tokyo Night, one command from a bare
+`archinstall` to a configured system. Built for my own machines and taste,
+not as a general-purpose distribution.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/MarioFronza/dark-sun/main/boot.sh | bash
@@ -24,7 +23,7 @@ directory. They are numbered in dependency order, in steps of 5.
 | Module | What it does |
 |---|---|
 | `05-packages` | pacman + AUR, GPU driver auto-detected via `lspci` |
-| `10-udev` | USB wake-on-connect, battery charge thresholds — laptops only |
+| `10-udev` | USB wake-on-connect, battery charge thresholds |
 | `15-dotfiles` | clones [dotfiles](https://github.com/MarioFronza/dotfiles) to `~/dotfiles` and stows every package into `$HOME` |
 | `20-zsh` | sets zsh as the login shell |
 | `25-tmux` | clones tpm |
@@ -35,16 +34,6 @@ Every file under `$HOME` comes from dotfiles as a symlink, so editing a
 config on the machine edits the clone. Commit and push from `~/dotfiles`.
 Claude Code's `settings.json` is the one exception: it is copied once,
 because Claude Code rewrites it at runtime.
-
-## Hardware differences
-
-Nothing has to be passed in or edited by hand:
-
-- **GPU** — every vendor found on the PCI bus gets its driver, so hybrid
-  graphics installs both.
-- **Laptop vs desktop** — `10-udev` installs nothing unless the DMI chassis
-  type says laptop, and `50-sway`'s monitor script exits immediately when
-  there is no built-in panel, leaving sway's own multi-monitor defaults.
 
 ## Migrating a configured machine
 
