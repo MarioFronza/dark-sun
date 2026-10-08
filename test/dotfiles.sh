@@ -51,6 +51,12 @@ if ! grep -q "runtime-marker" "$HOME/.claude/settings.json"; then
   exit 1
 fi
 
+bash -e "$DARK_SUN_REPO/modules/30-git/install.sh"
+if [[ ! -f "$HOME/.config/git/identity" || -L "$HOME/.config/git/identity" ]]; then
+  echo "FAIL: ~/.config/git/identity must be seeded as a regular file"
+  exit 1
+fi
+
 mkdir -p "$conflict_home/.config/sway"
 echo "mine" > "$conflict_home/.config/sway/config"
 if conflict_out=$(HOME="$conflict_home" bash -e "$MODULE" 2>&1); then
