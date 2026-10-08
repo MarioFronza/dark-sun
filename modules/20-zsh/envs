@@ -1,4 +1,1 @@
 export EDITOR=nvim
-
-export OLLAMA_API_BASE=http://127.0.0.1:11434
-export OLLAMA_HOME=http://127.0.0.1:11434

@@ -13,5 +13,4 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 bindkey -e
 
-export PATH="$PATH:$HOME/.lmstudio/bin"
 export PATH="$HOME/.cargo/bin:$PATH"

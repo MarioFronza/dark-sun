@@ -10,9 +10,6 @@ alias ....='cd ../../..'
 compress() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
 alias decompress='tar -xzf'
 
-alias monhd="sudo ddcutil -d 1 setvcp 60 0x12"
-alias mondp="sudo ddcutil -d 1 setvcp 60 0x0F"
-
 alias wifi='impala'
 alias bt='bluetui'
 alias audio='wiremix'
