@@ -10,6 +10,7 @@ man-db
 bash-completion
 pacman-contrib
 expac
+stow
 
 # --- Bootloader / snapshots (assumes Limine — swap for grub or
 #     systemd-boot if that is what the installer set up) ---

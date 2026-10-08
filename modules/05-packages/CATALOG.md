@@ -21,6 +21,7 @@ how to install them.
 | `bash-completion` | Programmable completion for the bash shell |
 | `pacman-contrib` | Contributed scripts and tools for pacman systems |
 | `expac` | alpm data (pacman database) extraction utility |
+| `stow` | Manage installation of multiple softwares in the same directory tree |
 
 ### Bootloader / snapshots
 
