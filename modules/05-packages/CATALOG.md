@@ -246,7 +246,6 @@ how to install them.
 
 | Package | Description |
 | --- | --- |
-| `ddcutil` | Query and change Linux monitor settings using DDC/CI and USB. |
 | `bolt` | Thunderbolt 3 device manager |
 | `fwupd` | Simple daemon to allow session software to update firmware |
 | `android-tools` | Android platform tools |

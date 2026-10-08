@@ -196,7 +196,6 @@ qemu-user-static-binfmt
 steam
 
 # --- Hardware-specific utilities ---
-ddcutil
 bolt
 fwupd
 android-tools
