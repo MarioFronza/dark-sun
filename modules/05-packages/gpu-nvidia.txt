@@ -1,8 +1,0 @@
-# NVIDIA GPU — nvidia-open only supports Turing (RTX 20xx) or newer. On a
-# pre-Turing card, drop this list and stay on nouveau, which is already in
-# the kernel and mesa.
-
-nvidia-open
-nvidia-utils
-lib32-nvidia-utils
-opencl-nvidia

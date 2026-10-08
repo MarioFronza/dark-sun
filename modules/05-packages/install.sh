@@ -17,7 +17,7 @@ mapfile -t official_pkgs < <(pkgs pacman.txt)
 sudo pacman -S --needed --noconfirm "${official_pkgs[@]}"
 
 echo "==> Detecting GPU"
-declare -A gpu_files=([Intel]=gpu-intel.txt [AMD]=gpu-amd.txt [NVIDIA]=gpu-nvidia.txt)
+declare -A gpu_files=([Intel]=gpu-intel.txt [AMD]=gpu-amd.txt)
 for vendor in "${!gpu_files[@]}"; do
   if lspci | grep -qiE "(VGA|3D|Display).*${vendor}"; then
     echo "==> Installing $vendor GPU driver"

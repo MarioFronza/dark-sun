@@ -287,15 +287,6 @@ how to install them.
 | `lib32-vulkan-intel` | Open-source Vulkan driver for Intel GPUs - 32-bit |
 | `intel-media-driver` | Intel Media Driver for VAAPI — Broadwell+ iGPUs |
 
-### NVIDIA
-
-| Package | Description |
-| --- | --- |
-| `nvidia-open` | NVIDIA open kernel modules |
-| `nvidia-utils` | NVIDIA drivers utilities |
-| `lib32-nvidia-utils` | NVIDIA drivers utilities (32-bit) |
-| `opencl-nvidia` | OpenCL implemention for NVIDIA |
-
 ## AUR (aur.txt)
 
 ### Dev tools
