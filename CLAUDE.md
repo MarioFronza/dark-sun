@@ -1,4 +1,4 @@
-# DarkSun
+# arch-linux-setup
 
 Arch installer: fresh `archinstall` to configured desktop, one command. Config
 under `$HOME` comes from [dotfiles](https://github.com/MarioFronza/dotfiles)
@@ -7,7 +7,7 @@ and when it disagrees with this file, this file is the goal.
 
 ## Boundary
 
-**dotfiles owns everything under `$HOME`.** DarkSun owns everything else.
+**dotfiles owns everything under `$HOME`.** arch-linux-setup owns everything else.
 
 - Here: packages, GPU drivers, multilib, system files (`/etc`, udev,
   services), login shell, then clone dotfiles and stow it.
@@ -18,7 +18,7 @@ and when it disagrees with this file, this file is the goal.
 
 ```
 curl .../boot.sh | bash
-  boot.sh     install git, clone dark-sun to ~/.local/share/dark-sun
+  boot.sh     install git, clone arch-linux-setup to ~/.local/share/arch-linux-setup
   install.sh  run modules/*/install.sh in order
     packages  pacman + AUR + GPU (lspci) + multilib + stow
     system    udev (laptop only), /etc files, chsh
@@ -42,4 +42,4 @@ curl .../boot.sh | bash
 - Bash: `set -euo pipefail`, `cd "$(dirname "${BASH_SOURCE[0]}")"` at module top.
 - Docs: README + QUICKSTART at the root. No per-module READMEs.
 - Conventional commit prefixes. A change spanning both repos is two commits,
-  dotfiles first (DarkSun consumes it).
+  dotfiles first (arch-linux-setup consumes it).

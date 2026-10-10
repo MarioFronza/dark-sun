@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DARK_SUN_REPO="$(cd "$(dirname "$0")/.." && pwd)"
-DOTFILES_REPO="${DOTFILES_REPO:-"$DARK_SUN_REPO/../dotfiles"}"
+SETUP_REPO="$(cd "$(dirname "$0")/.." && pwd)"
+DOTFILES_REPO="${DOTFILES_REPO:-"$SETUP_REPO/../dotfiles"}"
 # install.sh sources modules under set -e, so run them the same way.
-MODULE="$DARK_SUN_REPO/modules/15-dotfiles/install.sh"
+MODULE="$SETUP_REPO/modules/15-dotfiles/install.sh"
 
 tmphome=$(mktemp -d)
 conflict_home=$(mktemp -d)
@@ -51,7 +51,7 @@ if ! grep -q "runtime-marker" "$HOME/.claude/settings.json"; then
   exit 1
 fi
 
-bash -e "$DARK_SUN_REPO/modules/30-git/install.sh"
+bash -e "$SETUP_REPO/modules/30-git/install.sh"
 if [[ ! -f "$HOME/.config/git/identity" || -L "$HOME/.config/git/identity" ]]; then
   echo "FAIL: ~/.config/git/identity must be seeded as a regular file"
   exit 1

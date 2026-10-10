@@ -40,7 +40,7 @@ archinstall
 
 Leave the profile and audio sections alone on purpose. Every desktop
 profile drags in a compositor, a launcher and a terminal of its own
-choosing, and DarkSun installs its own set — see
+choosing, and arch-linux-setup installs its own set — see
 [`modules/05-packages/pacman.txt`](modules/05-packages/pacman.txt). Picking
 one only means uninstalling the parts you don't want afterwards.
 
@@ -65,13 +65,13 @@ From another machine:
 ssh <user>@<ip>
 ```
 
-## 5. Run DarkSun
+## 5. Run arch-linux-setup
 
 One command, everything the machine needs (multilib, pacman + AUR
 packages, GPU driver, every module's config):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/MarioFronza/dark-sun/main/boot.sh | bash
+curl -fsSL https://raw.githubusercontent.com/MarioFronza/arch-linux-setup/main/boot.sh | bash
 ```
 
 See [`README.md`](README.md) for what this installs and what it
@@ -87,7 +87,7 @@ Go back to the machine's own console for this part, because enabling them
 takes that connection down:
 
 ```bash
-cd ~/.local/share/dark-sun/modules/05-packages
+cd ~/.local/share/arch-linux-setup/modules/05-packages
 ./enable-services.sh
 ```
 

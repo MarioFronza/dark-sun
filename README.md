@@ -1,11 +1,11 @@
-# DarkSun
+# arch-linux-setup
 
 My personal Arch Linux setup: Sway, Tokyo Night, one command from a bare
 `archinstall` to a configured system. Built for my own machines and taste,
 not as a general-purpose distribution.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/MarioFronza/dark-sun/main/boot.sh | bash
+curl -fsSL https://raw.githubusercontent.com/MarioFronza/arch-linux-setup/main/boot.sh | bash
 ```
 
 Starting from blank hardware? See [`QUICKSTART.md`](QUICKSTART.md): install
@@ -13,7 +13,7 @@ media through a working, SSH-reachable base system, then the command above.
 
 ## How it works
 
-`boot.sh` installs git, clones this repo to `~/.local/share/dark-sun` and
+`boot.sh` installs git, clones this repo to `~/.local/share/arch-linux-setup` and
 sources `install.sh`, which runs every `modules/*/install.sh` in order.
 
 Each module is one self-contained directory: the script plus exactly the
@@ -51,7 +51,7 @@ for pkg in */; do
     | sed -n 's/.* over existing target \(.*\) since .*/\1/p' \
     | while read -r file; do mkdir -p "$backup/$(dirname "$file")"; mv ~/"$file" "$backup/$file"; done
 done
-source ~/.local/share/dark-sun/install.sh
+source ~/.local/share/arch-linux-setup/install.sh
 ```
 
 Diff anything you changed locally against `$backup` afterwards and commit

@@ -8,7 +8,7 @@ echo "==> Cloning dotfiles"
 echo "==> Stowing dotfiles"
 mapfile -t packages < <(find ~/dotfiles -maxdepth 1 -mindepth 1 -type d ! -name '.*' ! -name 'test' -printf '%f\n')
 stow --no-folding -d ~/dotfiles -t ~ "${packages[@]}" || {
-  echo "==> Files listed above are in the way. See \"Migrating a configured machine\" in ~/.local/share/dark-sun/README.md" >&2
+  echo "==> Files listed above are in the way. See \"Migrating a configured machine\" in ~/.local/share/arch-linux-setup/README.md" >&2
   false
 }
 

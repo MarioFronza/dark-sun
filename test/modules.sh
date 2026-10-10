@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DARK_SUN_REPO="$(cd "$(dirname "$0")/.." && pwd)"
-DOTFILES_REPO="${DOTFILES_REPO:-"$DARK_SUN_REPO/../dotfiles"}"
+SETUP_REPO="$(cd "$(dirname "$0")/.." && pwd)"
+DOTFILES_REPO="${DOTFILES_REPO:-"$SETUP_REPO/../dotfiles"}"
 
 # Config under $HOME belongs to dotfiles. A module carrying a file with the
 # same name as a dotfiles one is a stale copy waiting to drift.
@@ -16,7 +16,7 @@ while IFS= read -r file; do
     echo "FAIL: $file duplicates a dotfiles file"
     failures=$((failures + 1))
   fi
-done < <(git -C "$DARK_SUN_REPO" ls-files modules)
+done < <(git -C "$SETUP_REPO" ls-files modules)
 
 if [[ $failures -gt 0 ]]; then
   exit 1
